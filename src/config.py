@@ -176,7 +176,7 @@ def get_configured_llm_models(model_list: List[Dict[str, Any]]) -> List[str]:
 
 def resolve_unified_llm_temperature(model: str) -> float:
     """Resolve the unified LLM temperature with backward-compatible fallbacks."""
-    if "moonshot" in model.lower() or "k" in model.lower:
+    if "moonshot" in model.lower() or "k" in model.lower():
            return 1.0
     llm_temperature_raw = os.getenv("LLM_TEMPERATURE")
     if llm_temperature_raw and llm_temperature_raw.strip():
