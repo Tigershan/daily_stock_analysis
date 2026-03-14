@@ -176,6 +176,8 @@ def get_configured_llm_models(model_list: List[Dict[str, Any]]) -> List[str]:
 
 def resolve_unified_llm_temperature(model: str) -> float:
     """Resolve the unified LLM temperature with backward-compatible fallbacks."""
+    if "moonshot" in model.lower() or "k" in model.lower:
+           return 1.0
     llm_temperature_raw = os.getenv("LLM_TEMPERATURE")
     if llm_temperature_raw and llm_temperature_raw.strip():
         try:
@@ -272,6 +274,7 @@ class Config:
     litellm_fallback_models: List[str] = field(default_factory=list)  # Cross-model fallback list
 
     # Unified temperature for all LLM calls (LLM_TEMPERATURE); legacy per-provider temps are fallback only
+    
     llm_temperature: float = 0.7
 
     # --- Multi-channel LLM config (new) ---
